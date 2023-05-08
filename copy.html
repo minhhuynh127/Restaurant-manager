@@ -1,0 +1,102 @@
+<!-- Cấu trúc -->
+<div class="row">
+    <div class="col-4">
+
+    </div>
+    <div class="col-8">
+
+    </div>
+</div>
+
+<!-- Card -->
+<div class="card border-primary border-bottom border-3 border-0">
+    <div class="card-header">
+        <h3></h3>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title text-primary">
+
+        </h5>
+        <p class="card-text"></p>
+        <hr>
+        <div class="d-flex align-items-center gap-2">
+            <a class="btn btn-inverse-primary"><i class="bx bx-star"></i>Button</a>
+            <a class="btn btn-primary"><i class="bx bx-microphone"></i>Button</a>
+        </div>
+    </div>
+    <div class="card-footer">
+
+    </div>
+</div>
+
+<!-- Input -->
+<div class="mb-3">
+    <label class="form-label"></label>
+    <input type="text" class="form-control">
+</div>
+
+<!-- Table -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="text-center"></th>
+            <th class="text-center"></th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th class="text-center align-middle"></th>
+            <td class="align-middle"></td>
+            <td class="align-middle"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<!--  Hàm xử lí số -->
+            function convert(number) {
+                return new Intl.NumberFormat('vi-VI', { style: 'currency', currency: 'VND' }).format(number);
+            }
+-----------------------------------------------------------------------------------------
+<!-- Hàm xử lí chuỗi -->
+            function toSlug(str) {
+                // Chuyển hết sang chữ thường
+                str = str.toLowerCase();
+
+                // xóa dấu
+                str = str
+                    .normalize('NFD') // chuyển chuỗi sang unicode tổ hợp
+                    .replace(/[\u0300-\u036f]/g, ''); // xóa các ký tự dấu sau khi tách tổ hợp
+
+                // Thay ký tự đĐ
+                str = str.replace(/[đĐ]/g, 'd');
+
+                // Xóa ký tự đặc biệt
+                str = str.replace(/([^0-9a-z-\s])/g, '');
+
+                // Xóa khoảng trắng thay bằng ký tự -
+                str = str.replace(/(\s+)/g, '-');
+
+                // Xóa ký tự - liên tiếp
+                str = str.replace(/-+/g, '-');
+
+                // xóa phần dư - ở đầu & cuối
+                str = str.replace(/^-+|-+$/g, '');
+
+                // return
+                return str;
+            }
+
+<!-- Hàm xử lí ngày tháng -->
+            date_format(now) {
+                return moment(now).format('HH:mm:ss DD/MM/yyyy');
+            },
+
+
+
+ <!-- Multi Delete button -->
+    <button class="btn btn-danger" v-on:click="multiDel()">
+        <ion-icon name="trash-outline" class="text-white"></ion-icon>
+    </button>
+
