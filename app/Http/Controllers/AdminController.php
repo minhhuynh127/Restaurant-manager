@@ -59,7 +59,7 @@ class AdminController extends Controller
         if($account) {
             $now = Carbon::now();
             $time = $now->diffInMinutes($account->updated_at);
-            if(!$account->hash_reset || $time > 10) {
+            if(!$account->hash_reset || $time > 2) {
                 $account->hash_reset = Str::uuid();
                 $account->save();
                 $link = env('APP_URL') . '/admin/update-password/' . $account->hash_reset;
