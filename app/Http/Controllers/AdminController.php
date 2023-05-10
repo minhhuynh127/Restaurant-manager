@@ -59,7 +59,7 @@ class AdminController extends Controller
         if($account) {
             $now = Carbon::now();
             $time = $now->diffInMinutes($account->updated_at);
-            if(!$account->hash_reset || $time > 0) {
+            if(!$account->hash_reset || $time > 10) {
                 $account->hash_reset = Str::uuid();
                 $account->save();
                 $link = env('APP_URL') . '/admin/update-password/' . $account->hash_reset;
@@ -106,13 +106,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        $check = $this->checkRule(2);
-
-        if($check) {
-            toastr()->error("Bạn không đủ quyên!");
-            return redirect('/');
-        }
-
         $roles = Quyen::get();
         return view('admin.page.tai_khoan.index', compact('roles'));
     }
@@ -120,7 +113,7 @@ class AdminController extends Controller
     {
         $check = $this->checkRule(1);
         if($check) {
-            // toastr()->error("Bạn không đủ quyên!");
+            // toastr()->error("Bạn không đủ quyên truy cập!");
             // return redirect('/');
 
             return response()->json([
@@ -144,7 +137,7 @@ class AdminController extends Controller
         $check = $this->checkRule(2);
 
         if($check) {
-            toastr()->error("Bạn không đủ quyên!");
+            toastr()->error("Bạn không đủ quyên truy cập!");
             return redirect('/');
         }
 
