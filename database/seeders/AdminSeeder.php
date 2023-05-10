@@ -27,7 +27,7 @@ class AdminSeeder extends Seeder
                 'ngay_sinh' => '2001-01-01',
                 'password'  => bcrypt('123456'),
                 'hash_reset'    => null,
-                'id_quyen'  => null
+                'id_quyen'  => '1'
             ],
 
         ]);
