@@ -15,11 +15,11 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('loai_khach_hangs')->delete();
-        DB::table('loai_khach_hangs')->truncate();
+        DB::table('admins')->delete();
+        DB::table('admins')->truncate();
 
         // $faker = Faker::create();
-        DB::table('loai_khach_hangs')->insert([
+        DB::table('admins')->insert([
             [
                 'ho_va_ten' => 'Huỳnh Công Minh',
                 'email' => 'admin@gmail.com',
