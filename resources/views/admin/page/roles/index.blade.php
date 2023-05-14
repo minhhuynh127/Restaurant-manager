@@ -11,10 +11,6 @@
                       <label class="form-label fw-bold">Tên Quyền</label>
                       <input v-model="add.ten_quyen" type="text" class="form-control" placeholder="Nhập vào tên quyên..." >
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">List ID Quyền</label>
-                        <input v-model="add.list_id_quyen" type="text" class="form-control" placeholder="Nhập vào list id quyên..." >
-                      </div>
                 </div>
                 <div class="card-footer text-end">
                     <button class="btn btn-primary" v-on:click="createQuyen()">Thêm mới</button>
@@ -52,6 +48,7 @@
                                     <td class="text-center align-middle">@{{ value.ten_quyen }}</td>
                                     <td class="text-center align-middle">@{{ value.list_id_quyen }}</td>
                                     <td class="text-center align-middle">
+                                        <button class="btn btn-inverse-success fw-bold" data-bs-toggle="modal"data-bs-target="#roleModal" v-on:click="edit = Object.assign({}, value), getPhanQuyenDetail(value.list_id_quyen)">Cấp quyền</button>
                                         <button class="btn btn-outline-primary" v-on:click="edit = value" data-bs-toggle="modal"data-bs-target="#updateModal">Cập nhật</button>
                                         <button class="btn btn-outline-danger" v-on:click="del = value" data-bs-toggle="modal"data-bs-target="#deleteModal">Xóa bỏ</button>
                                     </td>
@@ -97,15 +94,50 @@
                                             <label class="form-label fw-bold">Tên Quyền</label>
                                             <input v-model="edit.ten_quyen" type="text" class="form-control">
                                           </div>
-                                          <div class="mb-3">
-                                              <label class="form-label fw-bold">List ID Quyền</label>
-                                              <input v-model="edit.list_id_quyen" type="text" class="form-control">
-                                            </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Đóng</button>
                                         <button type="button" v-on:click="updateQuyen()" class="btn btn-primary">Cập Nhật</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Role Delete --}}
+                        <div class="modal fade" id="roleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card border-primary border-bottom border-3 border-0">
+                                            <div class="card-header">
+                                                <h1 class="modal-title fs-5 text-primary text-center" id="exampleModalLabel">Cấp quyền cho <b class="text-danger">@{{ edit.ten_quyen }}</b></h1>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <template v-for="(value, key) in list_chuc_nang">
+                                                        <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" v-model="array_quyen" type="checkbox" v-bind:value="value.id" v-bind:id="'quyen_' + value.id">
+                                                                <span>@{{ value.id }}</span>
+                                                                <label class="form-check-label" v-bind:for="'quyen_' +  value.id">@{{ value.ten_chuc_nang }}</label>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="text-center">
+                                                    <button class="btn btn-primary" v-on:click="phanQuyen()" style="width: 95%">Cấp Quyền</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -127,12 +159,56 @@
                     del:    {},
                     edit:   {},
                     key_search: '',
+                    list_chuc_nang: [],
+                    array_quyen: []
 
                 },
                 created()   {
                     this.loadData();
+                    this.loadDataQuyen();
                 },
                 methods :   {
+                    phanQuyen() {
+                        var payload = {
+                            'id_quyen'          : this.edit.id,
+                            'list_phan_quyen'   : this.array_quyen,
+                        };
+                        axios
+                            .post('/admin/quyen/phan-quyen', payload)
+                            .then((res) => {
+                                if(res.data.status) {
+                                    toastr.success(res.data.message);
+                                    this.loadData();
+                                    $('#roleModal').modal('hide');
+
+                                } else {
+                                    toastr.error(res.data.message);
+                                }
+                            })
+                            .catch((res) => {
+                                $.each(res.response.data.errors, function(k, v) {
+                                    toastr.error(v[0]);
+                                });
+                            });
+                    },
+                    getPhanQuyenDetail(list_rule) {
+                        if (list_rule) {
+                            if (list_rule.indexOf(","))
+                                this.array_quyen = list_rule.split(",");
+                            else {
+                                this.array_quyen.push(list_rule);
+                            }
+                        } else {
+                            this.array_quyen = [];
+                        }
+                    },
+                    loadDataQuyen() {
+                        axios
+                            .get('/admin/quyen/data-chuc-nang')
+                            .then((res) => {
+                                this.list_chuc_nang  =  res.data.data;
+                            });
+                    },
                     search() {
                         var payload = {
                             'key_search' : this.key_search

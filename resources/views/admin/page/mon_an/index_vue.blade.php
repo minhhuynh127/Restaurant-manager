@@ -22,6 +22,10 @@
                         <input type="text" class="form-control" v-model="add_mon_an.gia_ban">
                     </div>
                     <div class="mb-3">
+                        <label class="form-label fw-bold">Hình Ảnh</label>
+                        <input type="file" class="form-control" ref="file" v-on:change="uploadFile()" accept="image/png, image/jpeg">
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label fw-bold">Danh mục</label>
                         <select class="form-control" v-model="add_mon_an.id_danh_muc">
                             <option value="0">Vui lòng chọn tên danh mục</option>
@@ -215,13 +219,18 @@
                         'id_danh_muc': 0,
                     },
                     key_search: '',
-                    order_by: 0
+                    order_by:   0,
+                    file:       ''
 
                 },
                 created() {
                     this.loadData();
                 },
                 methods: {
+                    uploadFile() {
+                        this.file = this.$refs.file.files[0];
+                        console.log(this.file);
+                    },
                     multiDel() {
                         var payload = {
                             'list' : this.list
@@ -316,8 +325,19 @@
                     },
                     addMonAn() {
                         $('.add').prop('disabled', true);
+                        var formData = new FormData();
+                        formData.append('hinh_anh', this.file);
+                        formData.append('ten_mon', this.add_mon_an.ten_mon);
+                        formData.append('slug_mon', this.add_mon_an.slug_mon);
+                        formData.append('gia_ban', this.add_mon_an.gia_ban);
+                        formData.append('id_danh_muc', this.add_mon_an.id_danh_muc);
+                        formData.append('tinh_trang', this.add_mon_an.tinh_trang);
                         axios
-                            .post('/admin/mon-an/create', this.add_mon_an)
+                            .post('/admin/mon-an/create', formData, {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data'
+                                }
+                            })
                             .then((res) => {
                                 if (res.data.status == 1) {
                                     toastr.success(res.data.message, 'Success');

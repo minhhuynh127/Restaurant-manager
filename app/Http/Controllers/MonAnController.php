@@ -7,6 +7,7 @@ use App\Http\Requests\MonAn\UpdateMonAnRequest;
 use App\Models\DanhMuc;
 use App\Models\MonAn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MonAnController extends Controller
 {
@@ -55,6 +56,12 @@ class MonAnController extends Controller
     public function store(CreateMonAnRequest $request)
     {
         $data = $request->all();
+        $file = $request->file('hinh_anh');
+        $name_image = Str::uuid() . '-' . $request->slug_mon . '.' . $file->getClientOriginalExtension();
+        // 1236345234234-slug_mon.png(jpg)
+        $data['hinh_anh'] = $name_image;
+        $file->move('image-mon-an', $name_image);
+
         MonAn::create($data);
         return response()->json([
             'status' => true,

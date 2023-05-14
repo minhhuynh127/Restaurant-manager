@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Quyen\CreateQuyenRequest;
 use App\Http\Requests\Quyen\UpdateQuyenRequest;
+use App\Models\DanhSachChucNang;
 use App\Models\Quyen;
 use Illuminate\Http\Request;
 
@@ -84,5 +85,28 @@ class QuyenController extends Controller
                 'message'   => 'Tên quyền không có trên hệ thống!',
             ]);
         }
+    }
+
+    public function getDataChucNang()
+    {
+        $chucNang = DanhSachChucNang::get();
+
+        return response()->json([
+            'data' => $chucNang
+        ]);
+    }
+    public function phanQuyen(Request $request)
+    {
+        $quyen      =  Quyen::find($request->id_quyen);
+        $list_id_quyen =  implode(",", $request->list_phan_quyen);
+        dd($list_id_quyen);
+        $quyen->update([
+            'list_id_quyen' => $list_id_quyen
+        ]);
+
+        return response()->json([
+            'status'  => true,
+            'message' => "Cập nhập phân quyền cho Quyền " . $quyen->ten_quyen . " thành công!",
+        ]);
     }
 }

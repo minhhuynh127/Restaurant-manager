@@ -18,9 +18,10 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\ThongKeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [TestController::class, 'index']);
-Route::get('/test', [HoaDonBanHangController::class, 'test']);
+// Route::get('/', [TestController::class, 'index']);
+// Route::get('/test', [HoaDonBanHangController::class, 'test']);
 // Code Login Admin
+Route::get('/', [AdminController::class, 'viewLogin']);
 Route::get('/admin/login', [AdminController::class, 'viewLogin']);
 Route::post('/admin/login', [AdminController::class, 'actionLogin']);
 
@@ -231,11 +232,13 @@ Route::group(['prefix' => '/admin', 'middleware' => 'checkAdminLogin'], function
     // Code Roles
     Route::group(['prefix' => '/quyen'], function() {
         Route::get('/', [QuyenController::class, 'index']);
-        Route::post('/create', [QuyenController::class, 'store']);
         Route::get('/data', [QuyenController::class, 'getData']);
+        Route::post('/create', [QuyenController::class, 'store']);
         Route::post('/delete', [QuyenController::class, 'destroy']);
         Route::post('/update', [QuyenController::class, 'update']);
         Route::post('/search', [QuyenController::class, 'search']);
+        Route::get('/data-chuc-nang', [QuyenController::class, 'getDataChucNang']);
+        Route::post('/phan-quyen', [QuyenController::class, 'phanQuyen']);
 
     });
 });

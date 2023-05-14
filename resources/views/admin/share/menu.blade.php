@@ -171,7 +171,7 @@
                     <div class="parent-icon">
                         <i class="fa-solid fa-hand-sparkles"></i>
                     </div>
-                    <div class="menu-title" style="font-size: 16px">Quyền</div>
+                    <div class="menu-title" style="font-size: 16px">Phân Quyền</div>
                 </a>
             </li>
         </ul>

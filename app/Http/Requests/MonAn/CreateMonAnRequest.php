@@ -28,7 +28,8 @@ class CreateMonAnRequest extends FormRequest
             'slug_mon'      =>  'required|min:5|unique:mon_ans,slug_mon',
             'gia_ban'       =>  'required|numeric|min:0',
             'tinh_trang'    =>  'required|boolean',
-            'id_danh_muc'   =>  'required|exists:danh_mucs,id'
+            'id_danh_muc'   =>  'required|exists:danh_mucs,id',
+            'hinh_anh'      =>  'required|mimes:png,jpg'
         ];
     }
     public function messages()

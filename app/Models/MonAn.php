@@ -17,5 +17,6 @@ class MonAn extends Model
         'id_danh_muc',
         'tong_xuat',
         'tong_nhap',
+        'hinh_anh',
     ];
 }

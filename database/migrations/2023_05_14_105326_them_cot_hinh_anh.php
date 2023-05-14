@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quyens', function (Blueprint $table) {
-            $table->id();
-            $table->string('ten_quyen');
-            $table->text('list_id_quyen')->nullable();
-            $table->timestamps();
+        Schema::table('mon_ans', function (Blueprint $table) {
+            $table->string('hinh_anh')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quyens');
+        Schema::table('mon_ans', function (Blueprint $table) {
+            //
+        });
     }
 };

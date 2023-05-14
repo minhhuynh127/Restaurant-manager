@@ -25,7 +25,7 @@ class CreateQuyenRequest extends FormRequest
     {
         return [
             'ten_quyen'     => 'required|unique:quyens,ten_quyen',
-            'list_id_quyen' =>'required',
+
         ];
     }
 
@@ -34,7 +34,7 @@ class CreateQuyenRequest extends FormRequest
         return [
             'ten_quyen.required'    => 'Tên quyền không được để trống!',
             'ten_quyen.unique'      => 'Tên quyền đã tồn tại trên hệ thống!',
-            'list_id_quyen.*'       =>  'List id quyền không được trống!'
+
         ];
     }
 }

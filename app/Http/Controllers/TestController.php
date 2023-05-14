@@ -18,6 +18,6 @@ class TestController extends Controller
 
         // $faker = Faker::create();
         // dd($faker->bankAccountNumber, $faker->bankRoutingNumber, $faker->creditCardNumber, $faker->creditCardType, $faker->creditCardExpirationDateString, $faker->creditCardExpirationDateString);
-        return view('admin.share.master');
+        return view('admin.page.login');
     }
 }
