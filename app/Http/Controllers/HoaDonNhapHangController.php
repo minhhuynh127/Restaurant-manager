@@ -26,12 +26,6 @@ class HoaDonNhapHangController extends Controller
      */
     public function index()
     {
-        $check = $this->checkRule(70);
-
-        if($check) {
-            toastr()->error("Bạn không đủ quyên truy cập!");
-            return redirect('/');
-        }
         return view('admin.page.nhap_hang.index');
     }
 
