@@ -725,7 +725,6 @@
                             });
                     },
                     accpectUpdate() {
-                        $('.edit').prop('disabled', true);
                         axios
                             .post('/admin/nha-cung-cap/update', this.edit_nha_cung_cap)
                             .then((res) => {
