@@ -200,12 +200,14 @@ Route::group(['prefix' => '/admin', 'middleware' => 'checkAdminLogin'], function
 
     // Code Hóa Đơn Nhập Hàng
     Route::group(['prefix' => '/nhap-hang'], function()   {
-        Route::post('/tao-hoa-don-nhap-hang', [HoaDonNhapHangController::class, 'store'])->name('tao-hoa-don');
-        Route::post('/nhap-hang-vao-chi-tiet-hoa-don-nhap', [HoaDonNhapHangController::class, 'nhapHangtoBill'])->name('nhap-hang');
-        Route::post('/danh-sach-mon-theo-hoa-don-nhap', [HoaDonNhapHangController::class, 'getDanhSachMonTheoHoaDonNhap'])->name('load-mon-theo-hoa-don-nhap');
-        Route::post('/find-id-hoa_don_nhap', [HoaDonNhapHangController::class, 'findIdByIdNhaCc']);
-        Route::post('/update', [HoaDonNhapHangController::class, 'updateBill']);
-        Route::post('/xoa-chi-tiet', [HoaDonNhapHangController::class, 'xoaChiTietHoaDon'])->name('xoa-hang');
+        Route::get('/', [HoaDonNhapHangController::class, 'index']);
+        Route::get('/data',[HoaDonNhapHangController::class,'getData']);
+        Route::post('/add-san-pham-nhap-hang', [HoaDonNhapHangController::class, 'addSanPhamNhapHang']);
+        Route::post('/delete-mon-an', [HoaDonNhapHangController::class, 'deleteMonAnNhapHang']);
+        Route::post('/update-chi-tiet-hoa-don-nhap', [HoaDonNhapHangController::class, 'updateChiTietHoaDonNhap']);
+        Route::post('/nhap-hang/action', [HoaDonNhapHangController::class, 'nhapHangAction']);
+        Route::post('/gui-mail', [HoaDonNhapHangController::class, 'guiMail']);
+
         Route::post('/multi-delete', [ChiTietHoaDonNhapHangController::class, 'multiDel'])->name('multi-delete-bill');
         Route::post('/multi-add', [ChiTietHoaDonNhapHangController::class, 'multiAdd'])->name('multi-add-bill');
 

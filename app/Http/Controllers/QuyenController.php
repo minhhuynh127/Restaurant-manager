@@ -99,7 +99,6 @@ class QuyenController extends Controller
     {
         $quyen      =  Quyen::find($request->id_quyen);
         $list_id_quyen =  implode(",", $request->list_phan_quyen);
-        dd($list_id_quyen);
         $quyen->update([
             'list_id_quyen' => $list_id_quyen
         ]);

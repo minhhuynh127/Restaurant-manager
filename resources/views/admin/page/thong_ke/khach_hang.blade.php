@@ -47,7 +47,7 @@
         var list_ten = [];
         var list_tien = [];
         var myChart = new Chart(ctx, {
-            type: 'bubble',
+            type: 'bar',
             data: {
                 labels: [],
                 datasets: [{

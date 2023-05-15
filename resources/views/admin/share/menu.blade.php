@@ -113,7 +113,14 @@
                     </li>
                   </ul>
             </li>
-
+            <li class="nav-item dropdown">
+                <a href="/admin/nhap-hang" class="nav-link dropdown-toggle dropdown-toggle-nocaret">
+                    <div class="parent-icon">
+                        <i class="fa-solid fa-file-import"></i>
+                    </div>
+                    <div class="menu-title" style="font-size: 16px">Nhập Hàng</div>
+                </a>
+            </li>
             <li class="nav-item dropdown">
                 <a href="" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="parent-icon">

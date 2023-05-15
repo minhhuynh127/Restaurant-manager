@@ -94,6 +94,8 @@ class ThongKeController extends Controller
                         ->orderByDESC('tong_tien')
                         ->take(7)
                         ->get();
+                        // dd($data->toArray());
+
         $list_ten = [];
         $list_tien = [];
         foreach ($data as $key => $value) {
@@ -117,7 +119,7 @@ class ThongKeController extends Controller
                         ->whereDate('hoa_don_nhap_hangs.ngay_nhap_hang', '<=', $request->end)
                         ->select('nha_cung_caps.ten_cong_ty', DB::raw('COUNT(hoa_don_nhap_hangs.id) AS so_lan_nhap_hang'), DB::raw('SUM(hoa_don_nhap_hangs.tong_tien_nhap) AS tong_tien_nhap'))
                         ->groupBy('nha_cung_caps.ten_cong_ty')
-                        ->take(10)
+                        ->take(5)
                         ->get();
                         // dd($data->toArray());
         $list_ten_nha_cc = [];

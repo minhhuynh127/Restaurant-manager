@@ -499,23 +499,7 @@
                                 });
                             });
                     },
-                    destroy(payload) {
-                        axios
-                            .post('{{ Route("xoa-hang") }}', payload)
-                            .then((res) => {
-                                if(res.data.status) {
-                                    toastr.success(res.data.message, 'Success');
-                                    this.loadDanhSachMonTheoHoaDonNhap(payload.id_hoa_don_nhap_hang);
-                                } else {
-                                    toastr.error(res.data.message, 'Error');
-                                }
-                            })
-                            .catch((res) => {
-                                $.each(res.response.data.errors, function(k, v) {
-                                    toastr.error(v[0]);
-                                });
-                            });
-                    },
+
                     updateBill(payload) {
                         axios
                             .post('/admin/nhap-hang/update', payload)
@@ -553,68 +537,9 @@
                                 });
                             });
                     },
-                    loadDanhSachMonTheoHoaDonNhap(id_hd_nhap) {
-                        var payload = {
-                            'id_hoa_don_nhap_hang' : id_hd_nhap
-                        }
-                        axios
-                            .post('{{ Route("load-mon-theo-hoa-don-nhap") }}', payload)
-                            .then((res) => {
-                                if(res.data.status) {
-                                    this.list_detail = res.data.data;
-                                    this.tong_tien   = res.data.tong_tien;
-                                    this.tien_chu    = res.data.tien_chu;
-                                } else {
-                                    toastr.error(res.data.message);
-                                }
-                            })
-                            .catch((res) => {
-                                $.each(res.response.data.errors, function(k, v) {
-                                    toastr.error(v[0]);
-                                });
-                            });
-                    },
-                    nhapHangtoBill(id_mon) {
-                        var payload = {
-                            'id_mon'        : id_mon,
-                            'id_hd_nhap'    : this.id_hd_nhap
-                        }
-                        axios
-                            .post('{{ Route("nhap-hang") }}', payload)
-                            .then((res) => {
-                                if(res.data.status) {
-                                    toastr.success(res.data.message, 'Success');
-                                } else {
-                                    toastr.error(res.data.message, 'Error');
-                                }
-                                this.loadDanhSachMonTheoHoaDonNhap(this.id_hd_nhap);
-                            })
-                            .catch((res) => {
-                                $.each(res.response.data.errors, function(k, v) {
-                                    toastr.error(v[0]);
-                                });
-                            });
-                    },
-                    taoHoaDonNhapHang(id_nha_cc) {
-                        var payload = {
-                            'id_nha_cc' : id_nha_cc
-                        }
-                        axios
-                            .post('{{ Route("tao-hoa-don") }}', payload)
-                            .then((res) => {
-                                if(res.data.status) {
-                                    toastr.success(res.data.message, 'Success');
-                                    this.id_hd_nhap = res.data.id_hd_nhap;
-                                } else {
-                                    toastr.error(res.data.message, 'Error');
-                                }
-                            })
-                            .catch((res) => {
-                                $.each(res.response.data.errors, function(k, v) {
-                                    toastr.error(v[0]);
-                                });
-                            });
-                    },
+
+
+
                     sort() {
                         this.order_by = this.order_by + 1;
                         if (this.order_by > 2) {
