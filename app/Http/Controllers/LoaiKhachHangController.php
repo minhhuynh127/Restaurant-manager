@@ -12,11 +12,23 @@ class LoaiKhachHangController extends Controller
 
     public function index()
     {
+        $check = $this->checkRule(26);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         return view('admin.page.loai_khach_hang.index');
     }
 
     public function getData()
     {
+        $check = $this->checkRule(27);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $loaiKhachHangs = LoaiKhachHang::get();
         foreach ($loaiKhachHangs as $key => $value) {
             // String to Array
@@ -38,6 +50,14 @@ class LoaiKhachHangController extends Controller
 
     public function store(Request $request)
     {
+        $check = $this->checkRule(29);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         $str = "";
         foreach ($request->list_mon as $key => $value) {
@@ -76,14 +96,17 @@ class LoaiKhachHangController extends Controller
             ]);
         }
     }
-    public function edit(LoaiKhachHang $loaiKhachHang)
-    {
-
-    }
-
 
     public function update(Request $request)
     {
+        $check = $this->checkRule(30);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $loaiKhachHang = LoaiKhachHang::where('id', $request->id)->first();
 
             $data = $request->all();
@@ -98,6 +121,14 @@ class LoaiKhachHangController extends Controller
 
     public function destroy(Request $request)
     {
+        $check = $this->checkRule(28);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $loaiKhachHang = LoaiKhachHang::find($request->id);
 
         if($loaiKhachHang) {
@@ -124,6 +155,14 @@ class LoaiKhachHangController extends Controller
 
     public function search(Request $request)
     {
+        $check = $this->checkRule(31);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $loaiKhachHangs = LoaiKhachHang::where('ten_loai_khach', 'like', '%' . $request->key_search . '%')
                             ->get();
         return response()->json([
@@ -133,6 +172,13 @@ class LoaiKhachHangController extends Controller
 
     public function multiDel(Request $request)
     {
+        $check = $this->checkRule(32);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
         $str = "";
         foreach ($request->list as $key => $value) {
             if(isset($value['check'])) {

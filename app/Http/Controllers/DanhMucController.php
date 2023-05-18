@@ -17,11 +17,23 @@ class DanhMucController extends Controller
     }
     public function indexVue()
     {
+        $check = $this->checkRule(49);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         return view('admin.page.danh_muc.indexx_vue');
     }
 
     public function getData()
     {
+        $check = $this->checkRule(50);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $danhMucs = DanhMuc::get();
         return response()->json([
             'danhMucs' => $danhMucs
@@ -30,6 +42,14 @@ class DanhMucController extends Controller
 
     public function changeStatus(Request $request)
     {
+        $check = $this->checkRule(51);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $danhMuc = DanhMuc::find($request->id);
         if($danhMuc) {
             $danhMuc->tinh_trang = !$danhMuc->tinh_trang;
@@ -48,6 +68,14 @@ class DanhMucController extends Controller
 
     public function store(CreateDanhMucRequest $request)
     {
+        $check = $this->checkRule(54);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         DanhMuc::create($data);
         return response()->json([
@@ -81,6 +109,14 @@ class DanhMucController extends Controller
 
     public function destroy(Request $request)
     {
+        $check = $this->checkRule(52);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $danhMuc = DanhMuc::find($request->id);
 
         if($danhMuc) {
@@ -107,6 +143,14 @@ class DanhMucController extends Controller
 
     public function edit(Request $request)
     {
+        $check = $this->checkRule(53);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $danhMuc = DanhMuc::find($request->id);
         if($danhMuc) {
             return response()->json([
@@ -151,6 +195,14 @@ class DanhMucController extends Controller
 
     public function multiDel(Request $request)
     {
+        $check = $this->checkRule(55);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $str = '';
         foreach ($request->list as $key => $value) {
             if(isset($value['check'])) {

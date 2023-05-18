@@ -11,16 +11,33 @@ class MenuBepController extends Controller
 {
     public function indexCheBien()
     {
+        $check = $this->checkRule(22);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         return view('admin.page.menu_bep.che_bien.index');
     }
 
     public function indexTiepThuc()
     {
+        $check = $this->checkRule(18);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         return view('admin.page.menu_bep.tiep_thuc.index');
     }
 
     public function getDataCheBien()
     {
+        $check = $this->checkRule(23);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
         $data = ChiTietBanHang::where('is_in_bep', 1)
                                 ->where('is_che_bien', 0)
                                 ->join('hoa_don_ban_hangs', 'chi_tiet_hoa_dons.id_hoa_don_ban_hang', 'hoa_don_ban_hangs.id')
@@ -45,6 +62,12 @@ class MenuBepController extends Controller
 
     public function getDataTiepThuc()
     {
+        $check = $this->checkRule(19);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $data = ChiTietBanHang::where('is_in_bep', 1)
                                 ->where('is_che_bien', 1)
                                 ->where('is_tiep_thuc', 0)

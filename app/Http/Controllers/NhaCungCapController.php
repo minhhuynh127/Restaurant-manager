@@ -17,11 +17,22 @@ class NhaCungCapController extends Controller
 
     public function indexVue()
     {
+        $check = $this->checkRule(12);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
         return view('admin.page.nha_cung_cap.index_vue');
     }
 
     public function getData(Request $request)
     {
+        $check = $this->checkRule(14);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $nhaCungCap = NhaCungCap::get();
         return response()->json([
             'nhaCungCap' => $nhaCungCap
@@ -30,6 +41,14 @@ class NhaCungCapController extends Controller
 
     public function changeStatus(Request $request)
     {
+        $check = $this->checkRule(17);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $nhaCungCap = NhaCungCap::find($request->id);
         if($nhaCungCap) {
             $nhaCungCap->tinh_trang = !$nhaCungCap->tinh_trang;
@@ -48,6 +67,15 @@ class NhaCungCapController extends Controller
 
     public function store(CreateNhaCungCapRequest $request)
     {
+        $check = $this->checkRule(13);
+        if($check) {
+
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         NhaCungCap::create($data);
         return response()->json([
@@ -81,6 +109,14 @@ class NhaCungCapController extends Controller
 
     public function edit(Request $request)
     {
+        $check = $this->checkRule(16);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $nhaCungCap = NhaCungCap::find($request->id);
         if($nhaCungCap) {
             return response()->json([
@@ -117,6 +153,14 @@ class NhaCungCapController extends Controller
 
     public function destroy(Request $request)
     {
+        $check = $this->checkRule(15);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $nhaCungCap = NhaCungCap::find($request->id);
         if($nhaCungCap) {
             $nhaCungCap->delete();
@@ -134,6 +178,13 @@ class NhaCungCapController extends Controller
 
     public function multiDel(Request $request)
     {
+        $check = $this->checkRule(15);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
         $str = "";
         foreach ($request->list as $key => $value) {
             if(isset($value['check'])) {

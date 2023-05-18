@@ -23,10 +23,24 @@ class KhuVucController extends Controller
 
     public function indexVue()
     {
+        $check = $this->checkRule(63);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         return view('admin.page.khu_vuc.index_vue');
     }
 
     public function getData() {
+        $check = $this->checkRule(64);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $list = KhuVuc::get();
         return response()->json([
             'list' => $list
@@ -34,6 +48,14 @@ class KhuVucController extends Controller
     }
 
     public function doiTrangThai(Request $request) {
+        $check = $this->checkRule(65);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $khuVuc = KhuVuc::find($request->id);
         if($khuVuc) {
             $khuVuc->tinh_trang = !$khuVuc->tinh_trang;
@@ -52,6 +74,14 @@ class KhuVucController extends Controller
 
     public function store(CreateKhuVucRequest $request)
     {
+        $check = $this->checkRule(68);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         KhuVuc::create($data);
         return response()->json([
@@ -85,6 +115,14 @@ class KhuVucController extends Controller
 
     public function edit(Request $request)
     {
+        $check = $this->checkRule(69);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $khuVuc = KhuVuc::find($request->id);
         if($khuVuc) {
             return response()->json([
@@ -120,6 +158,14 @@ class KhuVucController extends Controller
 
     public function destroy(Request $request)
     {
+        $check = $this->checkRule(66);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $khuVuc = KhuVuc::find($request->id);
 
         if($khuVuc) {
@@ -153,6 +199,14 @@ class KhuVucController extends Controller
 
     public function multiDel(Request $request)
     {
+        $check = $this->checkRule(67);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $str = "";
         foreach ($request->list as $key => $value) {
             if(isset($value['check'])) {

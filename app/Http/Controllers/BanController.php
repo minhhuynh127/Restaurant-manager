@@ -20,6 +20,12 @@ class BanController extends Controller
 
     public function indexVue()
     {
+        $check = $this->checkRule(56);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $khuVuc = KhuVuc::all();
 
         return view('admin.page.ban.index_vue', compact('khuVuc'));
@@ -27,6 +33,11 @@ class BanController extends Controller
 
     public function getData()
     {
+        $check = $this->checkRule(57);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
         $danhSachBan = Ban::join('khu_vucs', 'bans.id_khu_vuc', 'khu_vucs.id')
                             ->select('khu_vucs.ten_khu', 'bans.*')
                             ->orderBy('bans.id')
@@ -39,6 +50,14 @@ class BanController extends Controller
 
     public function changeStatus(Request $request)
     {
+        $check = $this->checkRule(58);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $ban = Ban::find($request->id);
         $hoaDon = HoaDonBanHang::where('id_ban', $ban->id)->first();
 
@@ -81,6 +100,14 @@ class BanController extends Controller
 
     public function store(CreateBanRequest $request)
     {
+        $check = $this->checkRule(60);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         Ban::create($data);
         return  response()->json([
@@ -93,6 +120,14 @@ class BanController extends Controller
 
     public function edit(Request $request)
     {
+        $check = $this->checkRule(61);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $ban = Ban::find($request->id);
         if($ban) {
             return response()->json([
@@ -130,6 +165,14 @@ class BanController extends Controller
 
     public function destroy(Request $request)
     {
+        $check = $this->checkRule(159);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $ban = Ban::find($request->id);
         $hoaDon = HoaDonBanHang::where('id_ban', $ban->id)->first();
         if($hoaDon && $hoaDon->trang_thai == 0) {

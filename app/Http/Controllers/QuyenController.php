@@ -13,12 +13,25 @@ class QuyenController extends Controller
 
     public function index()
     {
+        $check = $this->checkRule(7);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
         return view('admin.page.roles.index');
     }
 
 
     public function store(CreateQuyenRequest $request)
     {
+        $check = $this->checkRule(9);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         if($data) {
             Quyen::create($data);
@@ -36,6 +49,12 @@ class QuyenController extends Controller
 
 
     public function getData() {
+        $check = $this->checkRule(8);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $list = Quyen::get();
         return response()->json([
             'list' => $list
@@ -44,6 +63,14 @@ class QuyenController extends Controller
 
     public function update(UpdateQuyenRequest $request)
     {
+        $check = $this->checkRule(11);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         $quyen = Quyen::find($request->id);
         $quyen->update($data);
@@ -55,6 +82,14 @@ class QuyenController extends Controller
 
     public function destroy(Request $request)
     {
+        $check = $this->checkRule(10);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $quyen = Quyen::find($request->id);
         if($quyen) {
             $quyen->delete();

@@ -23,36 +23,36 @@
                     <h5 class="text-center text-primary fw-bold">Danh sách quyền</h5>
                 </div>
                 <div class="card-body">
-                    <div class="table-response">
+                    <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th class="align-middle">Tìm Kiếm</th>
-                                    <td colspan="2">
+                                    <td colspan="1">
                                         <input type="text" class="form-control" v-model="key_search" v-on:keyup.enter="search()">
                                     </td>
                                     <td class="text-start">
                                         <button class="btn btn-outline-primary" v-on:click="search()">Tìm Kiếm</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="table-primary">
                                     <th class="text-center">#</th>
                                     <th class="text-center">Tên Quyền</th>
-                                    <th class="text-center">List ID Quyền</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(value, key) in list">
-                                    <th class="text-center align-middle">@{{ key + 1 }}</th>
-                                    <td class="text-center align-middle">@{{ value.ten_quyen }}</td>
-                                    <td class="text-center align-middle">@{{ value.list_id_quyen }}</td>
-                                    <td class="text-center align-middle">
-                                        <button class="btn btn-inverse-success fw-bold" data-bs-toggle="modal"data-bs-target="#roleModal" v-on:click="edit = Object.assign({}, value), getPhanQuyenDetail(value.list_id_quyen)">Cấp quyền</button>
-                                        <button class="btn btn-outline-primary" v-on:click="edit = value" data-bs-toggle="modal"data-bs-target="#updateModal">Cập nhật</button>
-                                        <button class="btn btn-outline-danger" v-on:click="del = value" data-bs-toggle="modal"data-bs-target="#deleteModal">Xóa bỏ</button>
-                                    </td>
-                                </tr>
+                                <template v-for="(value, key) in list">
+                                    <tr>
+                                        <th class="text-center align-middle">@{{ key + 1 }}</th>
+                                        <td class="text-center align-middle">@{{ value.ten_quyen }}</td>
+                                        <td class="text-center align-middle text-nowrap">
+                                            <button class="btn btn-inverse-success fw-bold" data-bs-toggle="modal"data-bs-target="#roleModal" v-on:click="edit = Object.assign({}, value), getPhanQuyenDetail(value.list_id_quyen)">Cấp quyền</button>
+                                            <button class="btn btn-outline-primary" v-on:click="edit = value" data-bs-toggle="modal"data-bs-target="#updateModal">Cập nhật</button>
+                                            <button class="btn btn-outline-danger" v-on:click="del = value" data-bs-toggle="modal"data-bs-target="#deleteModal">Xóa bỏ</button>
+                                        </td>
+                                    </tr>
+                                </template>
                             </tbody>
                         </table>
                         {{-- Modal Delete --}}

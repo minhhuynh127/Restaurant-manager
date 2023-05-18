@@ -12,6 +12,12 @@ class KhachHangController extends Controller
 
     public function index()
     {
+        $check = $this->checkRule(33);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+
+        }
         $loaiKhachHangs = LoaiKhachHang::get();
         return view('admin.page.khach_hang.index', compact('loaiKhachHangs'));
     }
@@ -19,6 +25,12 @@ class KhachHangController extends Controller
 
     public function getData()
     {
+        $check = $this->checkRule(38);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $khachHangs = KhachHang::join('loai_khach_hangs', 'khach_hangs.id_loai_khach', 'loai_khach_hangs.id')
                         ->select('khach_hangs.*', 'loai_khach_hangs.ten_loai_khach')
                         ->orderBy('khach_hangs.id')
@@ -55,6 +67,14 @@ class KhachHangController extends Controller
 
     public function store(Request $request)
     {
+        $check = $this->checkRule(34);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         // dd($data);
         if(isset($data['ho_lot'])){
@@ -74,6 +94,14 @@ class KhachHangController extends Controller
 
     public function update(Request $request)
     {
+        $check = $this->checkRule(35);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $khachHang = KhachHang::where('id', $request->id)->first();
         $khachHang = KhachHang::find($request->id);
         if($khachHang){
@@ -93,6 +121,14 @@ class KhachHangController extends Controller
 
     public function destroy(Request $request)
     {
+        $check = $this->checkRule(36);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $khachHang = KhachHang::find($request->id);
         if($khachHang) {
             $khachHang->delete();
@@ -110,6 +146,14 @@ class KhachHangController extends Controller
 
     public function search(Request $request)
     {
+        $check = $this->checkRule(37);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $khachHangs = KhachHang::join('loai_khach_hangs', 'loai_khach_hangs.id', 'khach_hangs.id_loai_khach')
                         ->select('khach_hangs.*', 'loai_khach_hangs.ten_loai_khach')
                         ->where('khach_hangs.ten_khach', 'like', '%' . $request->key_search . '%')
@@ -124,6 +168,14 @@ class KhachHangController extends Controller
 
     public function multiDel(Request $request)
     {
+        $check = $this->checkRule(39);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $str = "";
         foreach ($request->list as $key => $value) {
             if(isset($value['check'])) {

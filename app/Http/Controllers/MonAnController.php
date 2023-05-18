@@ -20,6 +20,12 @@ class MonAnController extends Controller
 
     public function indexVue()
     {
+        $check = $this->checkRule(41);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $danhMuc = DanhMuc::get();
 
         return view('admin.page.mon_an.index_vue', compact('danhMuc'));
@@ -27,6 +33,12 @@ class MonAnController extends Controller
 
     public function getData()
     {
+        $check = $this->checkRule(42);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $monAns = MonAn::join('danh_mucs', 'mon_ans.id_danh_muc', 'danh_mucs.id')
                         ->select('danh_mucs.ten_danh_muc', 'mon_ans.*')
                         ->get();
@@ -37,6 +49,14 @@ class MonAnController extends Controller
 
     public function changeStatus(Request $request)
     {
+        $check = $this->checkRule(43);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $monAn = MonAn::find($request->id);
         if($monAn) {
             $monAn->tinh_trang = !$monAn->tinh_trang;
@@ -55,6 +75,14 @@ class MonAnController extends Controller
 
     public function store(CreateMonAnRequest $request)
     {
+        $check = $this->checkRule(46);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         $file = $request->file('hinh_anh');
         $name_image = Str::uuid() . '-' . $request->slug_mon . '.' . $file->getClientOriginalExtension();
@@ -94,6 +122,13 @@ class MonAnController extends Controller
 
     public function destroy(Request $request)
     {
+        $check = $this->checkRule(44);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
         $monAn = MonAn::find($request->id);
         if($monAn) {
             $monAn->delete();
@@ -111,6 +146,14 @@ class MonAnController extends Controller
 
     public function edit(Request $request)
     {
+        $check = $this->checkRule(45);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $monAn = MonAn::find($request->id);
         if($monAn) {
             return response()->json([
@@ -128,6 +171,14 @@ class MonAnController extends Controller
 
     public function update(UpdateMonAnRequest $request)
     {
+        $check = $this->checkRule(46);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $monAn = MonAn::where('id', $request->id)->first();
 
             $data = $request->all();
@@ -152,6 +203,14 @@ class MonAnController extends Controller
 
     public function multiDel(Request $request)
     {
+        $check = $this->checkRule(48);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $str = "";
         foreach ($request->list as $key => $value) {
             if(isset($value['check'])) {

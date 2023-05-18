@@ -128,9 +128,6 @@
                                             <button class="btn btn-outline-danger mb-3" data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal" v-on:click="del_nha_cung_cap = value">Xóa
                                                 Bỏ</button>
-                                            <button v-on:click="taoHoaDonNhapHang(value.id); getIdHoaDonNhap(value.id)" class="btn btn-outline-success" data-bs-toggle="modal"
-                                            data-bs-target="#chitietModal">Nhập Hàng
-                                            </button>
                                         </td>
                                     </tr>
                                 </template>

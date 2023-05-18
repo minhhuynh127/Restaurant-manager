@@ -26,11 +26,24 @@ class HoaDonNhapHangController extends Controller
      */
     public function index()
     {
+        $check = $this->checkRule(70);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+
+        }
+
         return view('admin.page.nhap_hang.index');
     }
 
     public function getData()
     {
+        $check = $this->checkRule(73);
+        if($check) {
+            toastr()->error("Bạn không đủ quyên truy cập!");
+            return redirect('/');
+        }
+
         $data =  ChiTietHoaDonNhapHang::where('id_hoa_don_nhap_hang', 0)
                                       ->where('trang_thai', 0)
                                       ->select('chi_tiet_hoa_don_nhap_hangs.*')
@@ -50,6 +63,14 @@ class HoaDonNhapHangController extends Controller
 
     public function addSanPhamNhapHang(Request $request)
     {
+        $check = $this->checkRule(71);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $monAn = MonAn::find($request->id);
         $hoaDonNhapHang = ChiTietHoaDonNhapHang::where('id_mon_an', $monAn->id)
                                                 ->where('id_hoa_don_nhap_hang', 0)
@@ -111,6 +132,14 @@ class HoaDonNhapHangController extends Controller
 
     public function nhapHangAction(Request $request)
     {
+        $check = $this->checkRule(72);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $data = $request->all();
         // dd($data);
         $data['ma_hoa_don_nhap_hang']   = Str::uuid();
@@ -148,6 +177,14 @@ class HoaDonNhapHangController extends Controller
 
     public function guiMail(Request $request)
     {
+        $check = $this->checkRule(74);
+        if($check) {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'Bạn không đủ quyên!',
+            ]);
+        }
+
         $id = $request->id_hoa_don_nhap;
 
         $donHang = HoaDonNhapHang::where('hoa_don_nhap_hangs.id', $id)
