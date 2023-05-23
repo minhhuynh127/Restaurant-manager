@@ -44,8 +44,6 @@
 
     <script>
         const ctx = document.getElementById('myChart');
-        var list_ten = [];
-        var list_tien = [];
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -77,7 +75,8 @@
                 }
             }
         });
-
+        var list_ten = [];
+        var list_tien = [];
         $('#thong-ke').click(function() {
             var payload = {
                 'begin' : $('#begin').val(),

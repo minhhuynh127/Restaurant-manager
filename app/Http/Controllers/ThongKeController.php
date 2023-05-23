@@ -92,7 +92,7 @@ class ThongKeController extends Controller
                         ->select('khach_hangs.ma_khach', 'khach_hangs.ho_va_ten', DB::raw('SUM(hoa_don_ban_hangs.tong_tien) as tong_tien'))
                         ->groupBy('khach_hangs.ma_khach', 'khach_hangs.ho_va_ten')
                         ->orderByDESC('tong_tien')
-                        ->take(7)
+                        ->take(10)
                         ->get();
                         // dd($data->toArray());
 
