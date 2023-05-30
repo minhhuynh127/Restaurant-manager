@@ -15,7 +15,7 @@ class UpdateBillRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'                => 'required|exists:chi_tiet_hoa_dons,id',
+            'id'                => 'required|exists:chi_tiet_ban_hangs,id',
             'so_luong_ban'      =>  'required|numeric',
             'tien_chiet_khau'   =>  'required|numeric',
             'ghi_chu'           =>  'nullable'

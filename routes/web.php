@@ -146,7 +146,7 @@ Route::group(['prefix' => '/admin', 'middleware' => 'checkAdminLogin'], function
 
     });
 
-    // Code Chi Tiết Hóa Đơn Bán Hàng
+    // Code Chi Tiết Bán Hàng
     Route::group(['prefix' => '/chi-tiet'], function()   {
         Route::post('/update', [ChiTietBanHangController::class, 'updateChietKhau'])->name('update-chiet-khau');
         Route::post('/multi-delete', [ChiTietBanHangController::class, 'multiDel']);

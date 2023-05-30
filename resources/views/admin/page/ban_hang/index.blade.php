@@ -747,6 +747,7 @@
                                 if (res.data.status) {
                                     toastr.success(res.data.message, 'Success');
                                     this.loadDanhSachBan();
+                                    this.giam_gia = 0;
                                 } else {
                                     toastr.error(res.data.message, 'Error');
                                     this.loadDanhSachBan();
