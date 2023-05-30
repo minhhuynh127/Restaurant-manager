@@ -84,7 +84,7 @@ class AdminController extends Controller
     {
         $check = Auth::guard('admin')->check();
         if($check) {
-            return redirect('/admin/ban-hang');
+            return redirect('/admin/khu-vuc');
         } else {
             return view('admin.page.login');
         }

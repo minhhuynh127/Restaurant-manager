@@ -38,6 +38,7 @@ class HoaDonBanHangController extends Controller
             $ban->save();
             $hoaDon = HoaDonBanHang::create([
                 'ma_hoa_don_ban_hang' => Str::uuid(),
+
                 'id_ban'              => $request->id_ban,
             ]);
             return response()->json([
